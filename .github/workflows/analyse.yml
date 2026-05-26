@@ -1,0 +1,24 @@
+name: Analyse Logs Linux
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  analyse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v4
+
+      - name: Exécuter le script
+        run: |
+          chmod +x scripts/analyse_logs.sh
+          ./scripts/analyse_logs.sh
+
+      - name: Sauvegarder le rapport
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-logs
+          path: reports/report.txt
